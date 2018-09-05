@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<title>Search Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+<script src="//unpkg.com/@feathersjs/client@3.4.2/dist/feathers.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+    height: 100%;
+    color: #000000;
+    line-height: 1.8;
+}
+
+/* Create a Parallax Effect */
+.bgimg-1 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* First image (Logo. 1/4 height) */
+.bgimg-1 {
+    background-image: url('https://thumbs.dreamstime.com/t/green-blue-aqua-abstract-panorama-web-banner-12944534.jpg');
+    min-height: 25%;
+}
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1{
+        background-attachment: scroll;
+    }
+}
+</style>
+
+<body>
+  <!-- Navbar (sit on top) -->
+  <div class="w3-bar w3-border" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="https://www.aleosiss.us/" class="w3-bar-item w3-button w3-hover-blue"><i class="fa fa-home"></i> HOME</a>
+    <a href="/account.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-blue"><i class="fa fa-star"></i> PROFILES</a>
+    <a href="/public.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-blue"><i class="fa fa-search"></i> BROWSE</a>
+    <a class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-blue" id="loginbutton"><i class="fa fa-user-circle-o"></i> LOGIN</a>
+  </div>
+
+<!-- First Parallax Image with Logo Text -->
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle w3-border-left w3-border-right" style="white-space:nowrap;">
+    <h1 class="w3-center w3-padding-large w3-xxxlarge w3-wide w3-animate-opacity w3-text-white"><b>Kibitzer</b><span class="w3-hide-small"></span></h1>
+  </div>
+</div>
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-container">
+          <p class="w3-large w3-text-teal"><b><i class="fa fa-user-circle-o w3-text-teal fa-fw w3-margin-right"></i>Account Info.</b>
+          <p id="accinfo_username"><i class="fa fa-user fa-fw w3-margin-right w3-large"></i></p>
+          <p id="accinfo_email"><i class="fa fa-envelope fa-fw w3-margin-right w3-large"></i></p>
+          <p id="accinfo_numprofiles"><i class="fa fa-file fa-fw w3-margin-right w3-large"></i></p>
+          <hr>
+          </div>
+      </div>
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+      <!-- Your Search Profiles -->
+      <h2 class="w3-padding-16 w3-text-teal"><i class="fa fa-search fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Search for a Search profile</h2>
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <div class="w3-container w3-white w3-padding-16 w3-border w3-round-large w3-margin-top">
+          <form id="search_profile_search_form">
+            <div class="w3-row-padding" style="margin:0 -8px;">
+              <div class="">
+                  <label><i class="fa fa-check w3-margin-bottom"></i> Whitelist</label>
+                  <input id="search-profile-input-form-whitelist" class="w3-input w3-border" placeholder="Keywords" name="whitelist" type="text" required>
+              </div>
+            </div>
+              <div class="w3-row-padding" style="margin:0 -7px;">
+                <div class="w3-third w3-margin-bottom">
+                </div>
+              </div>
+            </form>
+            <hr>
+            <div class="w3-row-padding" style="margin:0 -7px;">
+              <div class="w3-third w3-margin-bottom">
+              </div>
+              <div class="w3-third w3-margin-bottom">
+              </div>
+              <div class="w3-third w3-margin-bottom">
+                <button class="w3-button w3-teal w3-hover-blue w3-border w3-round-large" id="query-search-profiles"><i class="fa fa-search w3-margin-right"></i> Search</button>
+              </div>
+            </div>
+        </div>
+      <hr>
+    </div>
+
+    <!-- Your Search Profiles -->
+        <h2 class="w3-padding-16 w3-text-teal" id="user_search_profile_list_title"><i class="fa fa-file fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Results</h2>
+        <div id="user_search_profile_list" class="w3-container w3-card w3-white w3-margin-bottom">
+          <hr>
+        </div>
+      </div>
+    <!-- End Right Column -->
+  </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+  <!-- End Page Container -->
+</div>
+
+<!-- Footer -->
+<hr>
+<footer class="w3-center w3-teal w3-padding-64 w3-opacity w3-hover-opacity-off">
+  <a href="#home" class="w3-button w3-green"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+</footer>
+
+<script>
+function myAccFunc() {
+    var x = document.getElementById("demoAcc");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+<script src="app.js"></script>
+</body>
+</html>

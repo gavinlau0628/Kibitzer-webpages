@@ -1,0 +1,105 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+  font-weight: 400;
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#app {
+  justify-content: center;
+}
+
+.center-text {
+  text-align: center;
+}
+
+#main {
+  text-align: center;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+#nav-search-profile-container {
+  text-align: center;
+}
+div[id^='search_profile_display_wrapper_'] {
+  text-align: center;
+  border-style: solid;
+}
+
+#submitSearchProfileHTML {
+  justify-content: center;
+  text-align: center;
+}
+
+#user_search_profile_list {
+  margin-left: auto;
+  margin-right: auto;
+  overflow: scroll;
+  width: 50vh;
+  height: 80vh;
+  min-width: 500px;
+  justify-content: center;
+  text-align: center;
+}
+
+#search_profile_input_form {
+  width: 50vh;
+  min-width: 500px;
+  justify-content: center;
+  text-align: center;
+  position: inherit;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main {
+  margin-bottom: 50px;
+  padding: 20px;
+}
+
+img.logo {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 100;
+}
+
+footer {
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  padding: 20px;
+  margin-top: auto;
+}
+
+footer p {
+  font-weight: 300;
+  font-size: 1.0em;
+}
+
+a {
+  color: #31D8A0;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: #31D8A0;
+}
